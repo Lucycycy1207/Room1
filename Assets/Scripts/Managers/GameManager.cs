@@ -15,11 +15,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] enemyPrefab;
     [SerializeField] private Transform enemyContainer;
     [SerializeField] private GameObject nukePrefab;
+    [SerializeField] private GameObject gunPowerPrefab;
 
     [Header("Game Variables")]
     [SerializeField] private float enemySpawnRate;
     [SerializeField] private Bullet bulletPrefab;
-    [SerializeField] float nukeSpawnProb = 0.3f;
+    [SerializeField] float nukeSpawnProb = 0.2f;
+    [SerializeField] float gunPowerSpawnProb = 0.2f;
 
 
     [Header("Melee Variables")]
@@ -68,6 +70,17 @@ public class GameManager : MonoBehaviour
     {
         return nukeSpawnProb;
     }
+
+    public GameObject GetGunPowerPrefab()
+    {
+        return gunPowerPrefab;
+    }
+    
+    public float GetGunPowerSpawnProb()
+    {
+        return gunPowerSpawnProb;
+    }
+
 
     public static GameManager GetInstance()
     {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,11 +18,15 @@ public class PlayerInput : MonoBehaviour
     /// This variable represents position of mouse.
     /// </summary>
     private Vector2 lookTarget;
-    
+
+    public UnityEvent GunPowerShootingOn;
+    public UnityEvent GunPowerShootingOff;
+
+    private bool GunPowerMode;
     // Start is called before the first frame update
     void Start()
     {
-        
+        GunPowerMode = false;
         player = GetComponent<Player>();
     }
 
@@ -36,7 +41,24 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            player.Shoot();
+            if (GunPowerMode)
+            {
+                Debug.Log("player shooting in power mode");
+                GunPowerShootingOn?.Invoke();
+            }
+            else
+            {
+                player.Shoot();
+            }
+            
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            if (GunPowerMode)
+            {
+                Debug.Log("player stop shooting in power mode");
+                GunPowerShootingOff?.Invoke();
+            }
         }
         else if (Input.GetMouseButtonDown(1))
         {
@@ -48,6 +70,15 @@ public class PlayerInput : MonoBehaviour
     private void FixedUpdate()
     {
         player.Move(new Vector2(horizontal, vertical), lookTarget);
+    }
+
+    public void ActiveGunPowerMode()
+    {
+        GunPowerMode = true;
+    }
+    public void DeactiveGunPowerMode()
+    {
+        GunPowerMode = false;
     }
 
 }

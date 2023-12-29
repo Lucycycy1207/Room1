@@ -49,11 +49,20 @@ public class Enemy: PlayableObject
         //generate Nuke
 
         float randomValue = Random.Range(0f, 1f);
-        GameObject pref = GameManager.GetInstance().GetNukePrefab();
-
-        if (randomValue < GameManager.GetInstance().GetNukeSpawnProb())
+        GameObject NukePref = GameManager.GetInstance().GetNukePrefab();
+        GameObject GunPowerPref = GameManager.GetInstance().GetGunPowerPrefab();
+        
+        float NukeProb = GameManager.GetInstance().GetNukeSpawnProb();
+        float GunPowerProb = GameManager.GetInstance().GetGunPowerSpawnProb();
+        Debug.Log(NukeProb + GunPowerProb);
+        if (randomValue < NukeProb)
         {
-            Instantiate(pref, transform.position, Quaternion.identity);
+            Instantiate(NukePref, transform.position, Quaternion.identity);
+        }
+        //if (randomValue < NukeProb + GunPowerProb)
+        else
+        {
+            Instantiate(GunPowerPref, transform.position, Quaternion.identity);
         }
         Destroy(gameObject);
 
