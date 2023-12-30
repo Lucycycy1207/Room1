@@ -15,8 +15,8 @@ TagManager:
   - Water
   - UI
   - Background
-  - 
-  - 
+  - PowerUp
+  - Enemy
   - 
   - 
   - 
@@ -46,4 +46,10 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: PowerUp
+    uniqueID: 2504272417
+    locked: 0
+  - name: Enemy
+    uniqueID: 525580289
     locked: 0

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8950054371881022724}
   - component: {fileID: 7976904420001201865}
   - component: {fileID: 619441467580251364}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MachineGunEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}

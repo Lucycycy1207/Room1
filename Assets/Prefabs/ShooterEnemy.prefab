@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 818824721969183191}
   - component: {fileID: 8902806362085656723}
   - component: {fileID: 9182794967428825125}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6965062685205998980}
   - component: {fileID: 5598113529426273301}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 5726591096545918975}
   - component: {fileID: 8640327944167194732}
   - component: {fileID: 1622853945238272888}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ShooterEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
