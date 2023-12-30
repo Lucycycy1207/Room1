@@ -33,5 +33,10 @@ public class Weapon
         return damage;
     }
 
+    public float GetBulletSpeed()
+    {
+        return bulletSpeed;
+    }
+
     
 }

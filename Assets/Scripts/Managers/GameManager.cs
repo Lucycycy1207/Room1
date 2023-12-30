@@ -41,6 +41,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float machineGunRange = 6f;
     [SerializeField] private float machineGunRate = 0.5f;
 
+    [Header("Boomer Varaibles")]
+    [SerializeField] private float boomRadius = 6;
+    [SerializeField] private float boomDamage = 5f;
     [Header("Managers")]
     public ScoreManager scoreManager;
     public UIManager UIManager;
@@ -51,7 +54,7 @@ public class GameManager : MonoBehaviour
 
     private Weapon ShooterWeapon = new Weapon("Shooter", 40f, 10f);
     private Weapon MachineGunWeapon = new Weapon("MachineGun", 2f, 3f);
-
+    private Weapon BoomerWeapon = new Weapon("BoomerGun", 5f, 2f);
     [SerializeField]
     private Player player;
 
@@ -146,7 +149,13 @@ public class GameManager : MonoBehaviour
             tempEnemy.GetComponent<MachineGun>().SetMachineGun(machineGunRange, machineGunRate, bulletPrefab);
             tempEnemy.GetComponent<MachineGun>().weapon = MachineGunWeapon;
         }
-        
+
+        else if (tempEnemyType == 4)
+        {
+            tempEnemy.GetComponent<Boomer>().SetBoomer(boomRadius, boomDamage, bulletPrefab);
+            tempEnemy.GetComponent<Boomer>().weapon = BoomerWeapon;
+        }
+
     }
 
 

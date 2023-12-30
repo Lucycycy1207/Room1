@@ -16,7 +16,11 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         Move();
+    }
 
+    public float GetSpeed()
+    {
+        return this.speed;
     }
 
     private void Move()

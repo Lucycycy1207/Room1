@@ -29,6 +29,7 @@ public class Enemy: PlayableObject
     {
         if (target != null)
         {
+           
             Move(target.position);
         }
         else
@@ -106,7 +107,7 @@ public class Enemy: PlayableObject
         float angle = Mathf.Atan2(targetPosition.y, targetPosition.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        if (enemyType == EnemyType.Melee || enemyType == EnemyType.Exploder)
+        if (enemyType == EnemyType.Melee || enemyType == EnemyType.Exploder || enemyType == EnemyType.Boomer)
         {
             transform.Translate(Vector2.right * speed * Time.deltaTime);
         }
