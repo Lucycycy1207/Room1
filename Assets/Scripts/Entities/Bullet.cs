@@ -5,7 +5,8 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float damage;
     [SerializeField] private float speed;
 
-    private string targetTag;
+    
+    [SerializeField]private string targetTag;
     public void SetBullet(float _damage, string _targetTag, float _speed = 10.0f)
     {
         this.damage = _damage;
@@ -28,7 +29,7 @@ public class Bullet : MonoBehaviour
     /// <summary>
     /// Damage damageble object and destroy bullet
     /// </summary>
-    /// <param name="damageble">The object damageble component.</param>
+    // <param name="damageble">The object damageble component.</param>
     private void Damage(IDamageable damageble)
     {
         

@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Nuke
   - GunPower
+  - Test
   layers:
   - Default
   - TransparentFX
