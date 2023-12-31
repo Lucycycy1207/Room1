@@ -3246,6 +3246,10 @@ PrefabInstance:
       value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 4975440986041247796, guid: 6e2907623ade50845b370dbce681acad, type: 3}
+      propertyPath: AttackInterval
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975440986041247796, guid: 6e2907623ade50845b370dbce681acad, type: 3}
       propertyPath: FallastarLeftArm
       value: 
       objectReference: {fileID: 364120528}
