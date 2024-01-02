@@ -14,6 +14,7 @@ public class PlayerInput : MonoBehaviour
     private Player player;
     private float horizontal, vertical;
 
+    public BlockManager blockManager;
     /// <summary>
     /// This variable represents position of mouse.
     /// </summary>
@@ -63,6 +64,12 @@ public class PlayerInput : MonoBehaviour
         else if (Input.GetMouseButtonDown(1))
         {
             player.UseNuke();
+        }
+
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Debug.Log("pressed Q");
+            blockManager.SpawnBasicBlock();
         }
 
     }

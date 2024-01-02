@@ -143,7 +143,7 @@ public class Player: PlayableObject
 
     public override void GetDamage(float damage)
     {
-        Debug.Log("Player Damaged: " + damage);
+        //Debug.Log("Player Damaged: " + damage);
 
         
         playerHealth.DeductHealth(damage);

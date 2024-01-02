@@ -29,6 +29,7 @@ public class Exploder : Enemy
             Explode(explodeRadius);
         }
         
+        
     }
 
     public void Explode(float radius)
@@ -41,6 +42,15 @@ public class Exploder : Enemy
     public override void GetDamage(float damage)
     {
         base.GetDamage(damage);
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Block"))
+        {
+            collision.gameObject.GetComponent<IDamageable>().GetDamage(damage);
+            Destroy(gameObject);
+        }
     }
     public void SetExploder(float _explodeRadius, float _damage)
     {

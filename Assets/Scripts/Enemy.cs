@@ -45,7 +45,7 @@ public class Enemy: PlayableObject
 
     public override void Die()
     {
-        Debug.Log("Enemy Died");
+        //Debug.Log("Enemy Died");
         
         //generate Nuke
 
@@ -55,7 +55,7 @@ public class Enemy: PlayableObject
         
         float NukeProb = GameManager.GetInstance().GetNukeSpawnProb();
         float GunPowerProb = GameManager.GetInstance().GetGunPowerSpawnProb();
-        Debug.Log(NukeProb + GunPowerProb);
+        //Debug.Log(NukeProb + GunPowerProb);
         if (randomValue < NukeProb)
         {
             Instantiate(NukePref, transform.position, Quaternion.identity);

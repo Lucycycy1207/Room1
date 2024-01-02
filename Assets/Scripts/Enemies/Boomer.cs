@@ -25,6 +25,10 @@ public class Boomer : Enemy
     protected override void Update()
     {
         base.Update();
+        if (target == null)
+        {
+            return;
+        }
         //check if enemy in Scene
         screenPoint = mainCamera.WorldToViewportPoint(this.transform.position);
 
@@ -70,7 +74,7 @@ public class Boomer : Enemy
 
     public void SetBoomer(float _BoomRadius, float _damage, Bullet _bulletPrefab)
     {
-        Debug.Log("set boomer");
+        //Debug.Log("set boomer");
         this.BoomRadius = _BoomRadius;
         this.damage = _damage;
         this.bulletPrefab = _bulletPrefab;
