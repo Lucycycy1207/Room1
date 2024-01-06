@@ -22,8 +22,12 @@ public class Player: PlayableObject
     [Header("PickUps")]
     [SerializeField] private GameObject[] nukeDisplay;
     [SerializeField] private GameObject GunPowerImg;
+    
+
     private int nukeNum = 0;
     private int maxNuke = 3;
+
+    
 
     private int gunPowerMode = 0;
 
@@ -94,10 +98,8 @@ public class Player: PlayableObject
                     {
                         Shoot();
                         timer = 0;
-                    }
-                        
+                    } 
                 }
-                
             }
             else
             {
@@ -107,7 +109,6 @@ public class Player: PlayableObject
                 GunPowerImg.SetActive(false);
                 shootTimer = 0;
             }
-            
         }
 
         playerHealth.RegenerateHealth();
@@ -149,6 +150,7 @@ public class Player: PlayableObject
         playerHealth.DeductHealth(damage);
         if (playerHealth.GetHealth() <= 0)
         {
+            GameManager.GetInstance().UIManager.UpdateHealth();
             Die();
         }
     }
@@ -186,6 +188,10 @@ public class Player: PlayableObject
         Debug.Log("add GunPower to player");
         gunPowerMode = 1;
     }
+
+
+    
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

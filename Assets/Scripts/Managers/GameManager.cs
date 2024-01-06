@@ -130,30 +130,38 @@ public class GameManager : MonoBehaviour
 
         //
 
-        //set enemy to meleeEnemy
-        if (tempEnemyType == 0)
+        switch (tempEnemyType) 
         {
-            tempEnemy.GetComponent<MeleeEnemy>().SetMeleeEnemy(MeleeAttackRange, MeleeAttackTime, MeleeDamage);
-        }
-        else if (tempEnemyType == 1)
-        {
-            tempEnemy.GetComponent<Exploder>().SetExploder(ExplodeRange, ExplodeDamage);
-        }
-        else if (tempEnemyType == 2)
-        {
-            tempEnemy.GetComponent<Shooter>().SetShooter(ShootRange, ShootRate, bulletPrefab);
-            tempEnemy.GetComponent<Shooter>().weapon = ShooterWeapon;
-        }
-        else if (tempEnemyType == 3)
-        {
-            tempEnemy.GetComponent<MachineGun>().SetMachineGun(machineGunRange, machineGunRate, bulletPrefab);
-            tempEnemy.GetComponent<MachineGun>().weapon = MachineGunWeapon;
-        }
+            //set enemy to meleeEnemy
+            case 0:
+            {
+                tempEnemy.GetComponent<MeleeEnemy>().SetMeleeEnemy(MeleeAttackRange, MeleeAttackTime, MeleeDamage);
+                break;
+            }
+            case 1:
+            {
+                tempEnemy.GetComponent<Exploder>().SetExploder(ExplodeRange, ExplodeDamage);
+                break;
+            }
+            case 2:
+            {
+                tempEnemy.GetComponent<Shooter>().SetShooter(ShootRange, ShootRate, bulletPrefab);
+                tempEnemy.GetComponent<Shooter>().weapon = ShooterWeapon;
+                break;
+            }
+            case 3:
+            {
+                tempEnemy.GetComponent<MachineGun>().SetMachineGun(machineGunRange, machineGunRate, bulletPrefab);
+                tempEnemy.GetComponent<MachineGun>().weapon = MachineGunWeapon;
+                break;
+            }
 
-        else if (tempEnemyType == 4)
-        {
-            tempEnemy.GetComponent<Boomer>().SetBoomer(boomRadius, boomDamage, bulletPrefab);
-            tempEnemy.GetComponent<Boomer>().weapon = BoomerWeapon;
+            case 4:
+            {
+                tempEnemy.GetComponent<Boomer>().SetBoomer(boomRadius, boomDamage, bulletPrefab);
+                tempEnemy.GetComponent<Boomer>().weapon = BoomerWeapon;
+                break;
+            }
         }
 
     }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
+using UnityEngine.Events;
 
 public class BasicBlock : BlockObject
 {
@@ -23,6 +24,7 @@ public class BasicBlock : BlockObject
     public override void Destroy()
     {
         Debug.Log("block dies");
+        BlockManager.GetInstance().RemoveBlockInScene();
         Destroy(gameObject);
     }
 

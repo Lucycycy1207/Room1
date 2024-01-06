@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2651631468842338299}
   - component: {fileID: 8259317916197997788}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NukeDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}

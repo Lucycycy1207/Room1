@@ -69,13 +69,14 @@ public class PlayerInput : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Q))
         {
             Debug.Log("pressed Q");
-            blockManager.SpawnBasicBlock();
+            blockManager.SpawnBlock();
         }
 
     }
 
     private void FixedUpdate()
     {
+        Debug.Log($"{horizontal}, {vertical}");
         player.Move(new Vector2(horizontal, vertical), lookTarget);
     }
 
