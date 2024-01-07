@@ -8,6 +8,7 @@ TagManager:
   - Nuke
   - GunPower
   - Block
+  - HealthKit
   layers:
   - Default
   - TransparentFX

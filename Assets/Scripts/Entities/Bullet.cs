@@ -49,7 +49,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Bullet collided with " + collision.gameObject.name);
+        //Debug.Log("Bullet collided with " + collision.gameObject.name);
         //Check the target
         if (!(collision.gameObject.CompareTag(targetTag) || collision.gameObject.CompareTag("Block")))
             return;

@@ -4,5 +4,6 @@ public enum EnemyType// string to represent int
     Exploder,
     Shooter,
     MachineGun,
-    Boomer
+    Boomer,
+    SpiralShooter
 }

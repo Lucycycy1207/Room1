@@ -10,13 +10,17 @@ public class GameManager : MonoBehaviour
 
     private static GameManager instance;
 
+    [Header("Game Levels")]
+    [SerializeField] private int[] enemyKilledPerLevel;
+    [SerializeField] private int[] enemyNumPerLevel;
+
     [Header("Game Entities")]
     [SerializeField] private Transform[] spawnPositions;
     [SerializeField] private GameObject[] enemyPrefab;
     [SerializeField] private Transform enemyContainer;
     [SerializeField] private GameObject nukePrefab;
     [SerializeField] private GameObject gunPowerPrefab;
-
+    
     [Header("Game Variables")]
     [SerializeField] private float enemySpawnRate;
     [SerializeField] private Bullet bulletPrefab;
@@ -47,6 +51,7 @@ public class GameManager : MonoBehaviour
     [Header("Managers")]
     public ScoreManager scoreManager;
     public UIManager UIManager;
+    public LevelManager levelManager;   
 
 
     private GameObject tempEnemy;
@@ -55,12 +60,15 @@ public class GameManager : MonoBehaviour
     private Weapon ShooterWeapon = new Weapon("Shooter", 40f, 10f);
     private Weapon MachineGunWeapon = new Weapon("MachineGun", 2f, 3f);
     private Weapon BoomerWeapon = new Weapon("BoomerGun", 5f, 2f);
+    private Weapon SpiralWeapon = new Weapon("SpiralGun", 1f, 2f);
+
     [SerializeField]
     private Player player;
+    private int totalLevels;
 
     public float GetPlayerHealth()
     {
-        return player.GetHealth();
+        return player.health.GetHealth();
     }
 
 
@@ -90,8 +98,6 @@ public class GameManager : MonoBehaviour
         return instance;
     }
     
-
-
     private void SetSingleton()
     {
         if (instance != null && instance != this)
@@ -111,12 +117,26 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         isEnemySpawning = true;
+        totalLevels = enemyPrefab.Length;
         StartCoroutine(EnemySpawner());
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Check if complete current level;
+        int currLevel = levelManager.GetCurrLevel();
+        
+        if (currLevel == totalLevels)
+        {
+            return;
+        }
+
+        if (enemyKilledPerLevel[currLevel-1] <= scoreManager.GetScore())
+        {
+            levelManager.LoadLevel(currLevel + 1);
+        }
+        //Make enemy spawn
         GetEnemySpawn();
     }
 
@@ -162,6 +182,13 @@ public class GameManager : MonoBehaviour
                 tempEnemy.GetComponent<Boomer>().weapon = BoomerWeapon;
                 break;
             }
+            case 5:
+            {
+                tempEnemy.GetComponent<SpiralShooter>().SetSpiralShooter(0.1f, bulletPrefab);
+                tempEnemy.GetComponent<SpiralShooter>().weapon = SpiralWeapon;
+                break;
+            }
+
         }
 
     }

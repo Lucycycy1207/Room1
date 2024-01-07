@@ -76,7 +76,7 @@ public class PlayerInput : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log($"{horizontal}, {vertical}");
+        
         player.Move(new Vector2(horizontal, vertical), lookTarget);
     }
 
