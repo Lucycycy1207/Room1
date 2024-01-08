@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     private Weapon ShooterWeapon = new Weapon("Shooter", 40f, 10f);
     private Weapon MachineGunWeapon = new Weapon("MachineGun", 2f, 3f);
     private Weapon BoomerWeapon = new Weapon("BoomerGun", 5f, 2f);
+    private Weapon SpiralWeapon = new Weapon("SpiralGun", 5f, 2f);
     [SerializeField]
     private Player player;
 
@@ -154,6 +155,12 @@ public class GameManager : MonoBehaviour
         {
             tempEnemy.GetComponent<Boomer>().SetBoomer(boomRadius, boomDamage, bulletPrefab);
             tempEnemy.GetComponent<Boomer>().weapon = BoomerWeapon;
+        }
+
+        else if (tempEnemyType == 5)
+        {
+            tempEnemy.GetComponent<SpiralShooter>().SetSpiralShooter(0.2f, bulletPrefab);
+            tempEnemy.GetComponent<SpiralShooter>().weapon = SpiralWeapon;
         }
 
     }
