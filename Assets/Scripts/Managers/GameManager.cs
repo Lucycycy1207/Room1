@@ -48,10 +48,15 @@ public class GameManager : MonoBehaviour
     [Header("Boomer Varaibles")]
     [SerializeField] private float boomRadius = 6;
     [SerializeField] private float boomDamage = 5f;
+
+    [Header("Divider Variables")]
+    [SerializeField] private float dividerAttackRange = 20f;
+    [SerializeField] private float dividerAttackTime = 1f;
+
     [Header("Managers")]
     public ScoreManager scoreManager;
     public UIManager UIManager;
-    public LevelManager levelManager;   
+    //public LevelManager levelManager;   
 
 
     private GameObject tempEnemy;
@@ -61,6 +66,7 @@ public class GameManager : MonoBehaviour
     private Weapon MachineGunWeapon = new Weapon("MachineGun", 2f, 3f);
     private Weapon BoomerWeapon = new Weapon("BoomerGun", 5f, 2f);
     private Weapon SpiralWeapon = new Weapon("SpiralGun", 1f, 2f);
+    private Weapon DividerGun = new Weapon("DividerGun", 1f, 5f);
 
     [SerializeField]
     private Player player;
@@ -125,17 +131,17 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //Check if complete current level;
-        int currLevel = levelManager.GetCurrLevel();
+        //int currLevel = levelManager.GetCurrLevel();
         
-        if (currLevel == totalLevels)
-        {
-            return;
-        }
+        //if (currLevel == totalLevels)
+        //{
+        //    return;
+        //}
 
-        if (enemyKilledPerLevel[currLevel-1] <= scoreManager.GetScore())
-        {
-            levelManager.LoadLevel(currLevel + 1);
-        }
+        //if (enemyKilledPerLevel[currLevel-1] <= scoreManager.GetScore())
+        //{
+        //    levelManager.LoadLevel(currLevel + 1);
+        //}
         //Make enemy spawn
         GetEnemySpawn();
     }
@@ -182,12 +188,20 @@ public class GameManager : MonoBehaviour
                 tempEnemy.GetComponent<Boomer>().weapon = BoomerWeapon;
                 break;
             }
+            //case 5:
+            //    {
+            //        tempEnemy.GetComponent<SpiralShooter>().SetSpiralShooter(0.1f, bulletPrefab);
+            //        tempEnemy.GetComponent<SpiralShooter>().weapon = SpiralWeapon;
+            //        break;
+            //    }
             case 5:
             {
-                tempEnemy.GetComponent<SpiralShooter>().SetSpiralShooter(0.1f, bulletPrefab);
-                tempEnemy.GetComponent<SpiralShooter>().weapon = SpiralWeapon;
+                tempEnemy.GetComponent<Divider>().SetDivider(dividerAttackRange, dividerAttackTime, bulletPrefab);
+                tempEnemy.GetComponent<Divider>().weapon = DividerGun;
                 break;
             }
+            
+
 
         }
 
