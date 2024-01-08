@@ -20,12 +20,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform enemyContainer;
     [SerializeField] private GameObject nukePrefab;
     [SerializeField] private GameObject gunPowerPrefab;
-    
+    [SerializeField] private GameObject healthKitPrefab;
+
     [Header("Game Variables")]
     [SerializeField] private float enemySpawnRate;
     [SerializeField] private Bullet bulletPrefab;
-    [SerializeField] float nukeSpawnProb = 0.2f;
-    [SerializeField] float gunPowerSpawnProb = 0.2f;
+    
+    [SerializeField] float nukeSpawnProb = 0.1f;
+    [SerializeField] float gunPowerSpawnProb = 0.1f;
+    [SerializeField] float healthKitSpawnProb = 0.05f;
 
 
     [Header("Melee Variables")]
@@ -97,6 +100,16 @@ public class GameManager : MonoBehaviour
     {
         return gunPowerSpawnProb;
     }
+
+    public GameObject GetHealthKitPrefab()
+    {
+        return healthKitPrefab;
+    }
+    public float GetHealthKitSpawnProb()
+    {
+        return healthKitSpawnProb;
+    }
+
 
 
     public static GameManager GetInstance()
@@ -188,19 +201,19 @@ public class GameManager : MonoBehaviour
                 tempEnemy.GetComponent<Boomer>().weapon = BoomerWeapon;
                 break;
             }
-            //case 5:
-            //    {
-            //        tempEnemy.GetComponent<SpiralShooter>().SetSpiralShooter(0.1f, bulletPrefab);
-            //        tempEnemy.GetComponent<SpiralShooter>().weapon = SpiralWeapon;
-            //        break;
-            //    }
             case 5:
             {
                 tempEnemy.GetComponent<Divider>().SetDivider(dividerAttackRange, dividerAttackTime, bulletPrefab);
                 tempEnemy.GetComponent<Divider>().weapon = DividerGun;
                 break;
             }
-            
+            //case 6:
+            //    {
+            //        tempEnemy.GetComponent<SpiralShooter>().SetSpiralShooter(0.1f, bulletPrefab);
+            //        tempEnemy.GetComponent<SpiralShooter>().weapon = SpiralWeapon;
+            //        break;
+            //    }
+
 
 
         }
