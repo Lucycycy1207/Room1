@@ -7,7 +7,7 @@ public class BlockManager : MonoBehaviour
 {
     [SerializeField] GameObject player;
     [SerializeField] GameObject basicBlockPref;
-    [SerializeField] private Image[] blockDisplay;
+    [SerializeField] private GameObject[] blockDisplay;
 
     private int blockNum = 3;
     private int maxBlock = 3;
@@ -16,6 +16,7 @@ public class BlockManager : MonoBehaviour
     private bool isCooldownActive = false;
 
     private static BlockManager instance;
+    private bool startActive;
 
     private int blockInScene = 0;
     public static BlockManager GetInstance()
@@ -37,6 +38,16 @@ public class BlockManager : MonoBehaviour
         SetSingleton();
     }
 
+    private void Start()
+    {
+        for (int i = 0; i < blockDisplay.Length; i++)
+        {
+            blockDisplay[i].SetActive(false);
+        }
+        startActive = false;
+
+
+    }
     private void Update()
     {
         //Some blocks in used/ after press Q
@@ -52,16 +63,33 @@ public class BlockManager : MonoBehaviour
                 isCooldownActive = false;
             }
         }
+        bool BlockEnabled = GameManager.GetInstance().levelManager.GetPowerUp()[2];
+        if (BlockEnabled)
+        {
+            if (!startActive)
+            {
+                startActive = true;
+                Debug.Log("visible the block display");
+                for (int i = 0; i < blockDisplay.Length; i++)
+                {
+                    blockDisplay[i].SetActive(true);
+                }
+
+            }
+        }
         
+
 
     }
 
     public void SpawnBlock()
     {
-        if (blockNum == 0)
+        
+        if (blockNum == 0 || !startActive)
         {
             return;
         }
+        
         SpawnBasicBlock();
         blockInScene += 1;
         UpdateRemainBlock();

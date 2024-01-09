@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Events;
+using static Unity.Collections.AllocatorManager;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
 
     [Header("Game Levels")]
+    [SerializeField] private int MaxLevel;
     [SerializeField] private int[] enemyKilledPerLevel;
     [SerializeField] private int[] enemyNumPerLevel;
 
@@ -18,6 +20,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform[] spawnPositions;
     [SerializeField] private GameObject[] enemyPrefab;
     [SerializeField] private Transform enemyContainer;
+
+    [Header("Collectable Prefs")]
     [SerializeField] private GameObject nukePrefab;
     [SerializeField] private GameObject gunPowerPrefab;
     [SerializeField] private GameObject healthKitPrefab;
@@ -25,7 +29,8 @@ public class GameManager : MonoBehaviour
     [Header("Game Variables")]
     [SerializeField] private float enemySpawnRate;
     [SerializeField] private Bullet bulletPrefab;
-    
+
+        
     [SerializeField] float nukeSpawnProb = 0.1f;
     [SerializeField] float gunPowerSpawnProb = 0.1f;
     [SerializeField] float healthKitSpawnProb = 0.05f;
@@ -59,11 +64,13 @@ public class GameManager : MonoBehaviour
     [Header("Managers")]
     public ScoreManager scoreManager;
     public UIManager UIManager;
-    //public LevelManager levelManager;   
+    public LevelManager levelManager;   
 
 
     private GameObject tempEnemy;
-    private bool isEnemySpawning;
+    public bool isEnemySpawning;
+    public bool PauseEnemySpawning;
+
 
     private Weapon ShooterWeapon = new Weapon("Shooter", 40f, 10f);
     private Weapon MachineGunWeapon = new Weapon("MachineGun", 2f, 3f);
@@ -71,15 +78,17 @@ public class GameManager : MonoBehaviour
     private Weapon SpiralWeapon = new Weapon("SpiralGun", 1f, 2f);
     private Weapon DividerGun = new Weapon("DividerGun", 1f, 5f);
 
-    [SerializeField]
-    private Player player;
+    [SerializeField] public Player player;
     private int totalLevels;
 
+    public int EnemyKilledInLevel(int level)
+    {
+        return enemyKilledPerLevel[level - 1];
+    }
     public float GetPlayerHealth()
     {
         return player.health.GetHealth();
     }
-
 
     public GameObject GetNukePrefab()
     {
@@ -136,39 +145,41 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         isEnemySpawning = true;
+        PauseEnemySpawning = false;
         totalLevels = enemyPrefab.Length;
         StartCoroutine(EnemySpawner());
+        levelManager.SetMaxLevel(MaxLevel);
     }
 
+    public int GetLevel()
+    {
+        return levelManager.GetCurrLevel();
+    }
     // Update is called once per frame
     void Update()
     {
         //Check if complete current level;
-        //int currLevel = levelManager.GetCurrLevel();
-        
-        //if (currLevel == totalLevels)
-        //{
-        //    return;
-        //}
+        int currLevel = levelManager.GetCurrLevel();
 
-        //if (enemyKilledPerLevel[currLevel-1] <= scoreManager.GetScore())
-        //{
-        //    levelManager.LoadLevel(currLevel + 1);
-        //}
+        if (currLevel+1 == totalLevels)
+        {
+            return;
+        }
+
+        
         //Make enemy spawn
-        GetEnemySpawn();
+        //GetEnemySpawn();
     }
 
-    private void CreateEnemy()
+    
+
+    private void CreateEnemy(int enemyAmount)
     {
-        int tempEnemyType = Random.Range(0, enemyPrefab.Length);
+        int tempEnemyType = Random.Range(0, enemyAmount);
         tempEnemy = Instantiate(enemyPrefab[tempEnemyType]);
         tempEnemy.transform.SetParent(enemyContainer);
         tempEnemy.transform.position = spawnPositions[Random.Range(0, spawnPositions.Length)].position;
-        //Debug.Log("tempEnemyType: " + tempEnemyType);
-
-        //
-
+        
         switch (tempEnemyType) 
         {
             //set enemy to meleeEnemy
@@ -221,35 +232,31 @@ public class GameManager : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// Press X to spawn new enemy.
-    /// </summary>
-    private void GetEnemySpawn()
-    {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            CreateEnemy();
-        }
-    }
-
     IEnumerator EnemySpawner()
     {
         while (isEnemySpawning)
         {
             yield return new WaitForSeconds(1.0f / enemySpawnRate);
-            if (player != null)
-                CreateEnemy();
+            if (!PauseEnemySpawning)
+            {
+                if (player != null)
+                {
+                    int currLevel = levelManager.GetCurrLevel();
+                    //Debug.Log($"create enemy");
+                    CreateEnemy(enemyNumPerLevel[currLevel - 1]);
+                }
+            }
         }
     }
 
     /// <summary>
-    /// Destroy all entities in the scene. (Enemies, bullets)
+    /// Destroy all entities in the scene. (Enemies, bullets, block)
     /// </summary>
     public void DestroyEntities()
     {
 
         var EnemyList = FindObjectsOfType<Enemy>();
-        Debug.Log(EnemyList + " : " + EnemyList.Length);
+        //Debug.Log(EnemyList + " : " + EnemyList.Length);
  
 
         for (int i = 0; i < EnemyList.Length; i++)
@@ -262,10 +269,40 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < bulletList.Length; i++)
         {
-            Destroy(bulletList[i].gameObject);
+Destroy(bulletList[i].gameObject);
+}
+
+        var blockList = FindObjectsOfType<BasicBlock>();
+
+        for (int i = 0; i < blockList.Length; i++)
+        {
+            Destroy(blockList[i].gameObject);
         }
+    }
 
+    /// <summary>
+    /// Destroy all Collectable in the scene.
+    /// </summary>
+    public void DestroyCollectable()
+    {
+        //Debug.Log($"collectable:");
+        var NukeList = GameObject.FindGameObjectsWithTag("Nuke");
+        
+        var GunpowerList = GameObject.FindGameObjectsWithTag("GunPower");
+        
+        var HealthKitList = GameObject.FindGameObjectsWithTag("HealthKit");
+        
+        var collectableList = new GameObject[NukeList.Length + GunpowerList.Length + HealthKitList.Length];
+        
+        NukeList.CopyTo(collectableList, 0);
+        GunpowerList.CopyTo(collectableList, NukeList.Length);
+        HealthKitList.CopyTo(collectableList, NukeList.Length + GunpowerList.Length);
 
+        
+        for (int i = 0; i < collectableList.Length; i++)
+        {
+            Destroy(collectableList[i].gameObject);
+        }
     }
 
 

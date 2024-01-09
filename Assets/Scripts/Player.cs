@@ -45,6 +45,11 @@ public class Player: PlayableObject
         weapon.Shoot(bulletPrefab, this, "Enemy");
     }
 
+    public void ResetPlayerTranform()
+    {
+        this.transform.position = new Vector2(0, 0);
+        this.transform.rotation = Quaternion.identity;
+    }
    
     public override void Die()
     {
@@ -59,10 +64,15 @@ public class Player: PlayableObject
         GameManager.GetInstance().UIManager.UpdateHealth();
         //health = new Health(100f, 100f, 0.5f);
         playerRB = GetComponent<Rigidbody2D>();
-        Debug.Log("Player health value is " + health.GetHealth());
+        //Debug.Log("Player health value is " + health.GetHealth());
         //Set Player Weapon
         weapon = new Weapon("Player Weapon", weaponDamage, bulletSpeed);
         GunPowerImg.SetActive(false);
+
+        for (int i = 0; i < nukeDisplay.Length; i++)
+        {
+            nukeDisplay[i].GetComponent<Renderer>().enabled = false;
+        }
         
     }
 
@@ -181,13 +191,9 @@ public class Player: PlayableObject
     public void AddGunPower()
     {
         //Add a GunPower to the player here!
-        Debug.Log("add GunPower to player");
+        //Debug.Log("add GunPower to player");
         gunPowerMode = 1;
     }
-
-
-    
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -207,11 +213,12 @@ public class Player: PlayableObject
 
             this.GetComponent<PlayerInput>().ActiveGunPowerMode();
         }
-        
 
-
-
-
+        else if (collision.gameObject.CompareTag("LevelTrigger"))
+        {
+            Debug.Log("touched levelTrigger");
+            GameManager.GetInstance().levelManager.TriggerLevel();
+        }
 
     }
 }

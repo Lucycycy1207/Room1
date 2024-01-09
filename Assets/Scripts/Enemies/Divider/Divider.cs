@@ -99,7 +99,7 @@ public class Divider : Enemy
 
 
         // split
-        Debug.Log("should be split");
+        //Debug.Log("should be split");
         float PosOffset = 0.5f;
         
         InitiateDividerSmallEnemy(DividerTransform, PosOffset);

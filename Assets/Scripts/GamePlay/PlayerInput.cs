@@ -44,7 +44,7 @@ public class PlayerInput : MonoBehaviour
         {
             if (GunPowerMode)
             {
-                Debug.Log("player shooting in power mode");
+                //Debug.Log("player shooting in power mode");
                 GunPowerShootingOn?.Invoke();
             }
             else
@@ -57,7 +57,7 @@ public class PlayerInput : MonoBehaviour
         {
             if (GunPowerMode)
             {
-                Debug.Log("player stop shooting in power mode");
+                //Debug.Log("player stop shooting in power mode");
                 GunPowerShootingOff?.Invoke();
             }
         }
@@ -68,7 +68,7 @@ public class PlayerInput : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.Q))
         {
-            Debug.Log("pressed Q");
+            //Debug.Log("pressed Q");
             blockManager.SpawnBlock();
         }
 

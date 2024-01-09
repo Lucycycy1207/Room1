@@ -9,6 +9,8 @@ TagManager:
   - GunPower
   - Block
   - HealthKit
+  - LevelTrigger
+  - Bullet
   layers:
   - Default
   - TransparentFX
