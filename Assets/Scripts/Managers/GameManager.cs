@@ -62,6 +62,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float dividerAttackRange = 20f;
     [SerializeField] private float dividerAttackTime = 1f;
 
+    [Header("SpiralShooter Variables")]
+    [SerializeField] private float timeSinceLastShot = 0f;
+    [SerializeField] private float timeBetweenShots = 0.2f;
+    [SerializeField] public float rotationSpeed = 30f;
+
     [Header("Managers")]
     public ScoreManager scoreManager;
     public UIManager UIManager;
@@ -78,11 +83,13 @@ public class GameManager : MonoBehaviour
     private Weapon ShooterWeapon = new Weapon("Shooter", 40f, 10f);
     private Weapon MachineGunWeapon = new Weapon("MachineGun", 2f, 3f);
     private Weapon BoomerWeapon = new Weapon("BoomerGun", 5f, 2f);
+
     private Weapon SpiralWeapon = new Weapon("SpiralGun", 1f, 2f);
     private Weapon DividerGun = new Weapon("DividerGun", 1f, 5f);
 
     [SerializeField] public Player player;
     private int totalLevels;
+
 
     public int EnemyKilledInLevel(int level)
     {
@@ -233,7 +240,7 @@ public class GameManager : MonoBehaviour
             }
             case 6:
                 {
-                    tempEnemy.GetComponent<SpiralShooter>().SetSpiralShooter(0.1f, bulletPrefab);
+                    tempEnemy.GetComponent<SpiralShooter>().SetSpiralShooter(rotationSpeed,timeSinceLastShot,timeBetweenShots, bulletPrefab);
                     tempEnemy.GetComponent<SpiralShooter>().weapon = SpiralWeapon;
                     break;
                 }
@@ -242,7 +249,7 @@ public class GameManager : MonoBehaviour
 
         }
 
-    }
+     }
     public void RestoreLevel()
     {
         DestroyEntities();
