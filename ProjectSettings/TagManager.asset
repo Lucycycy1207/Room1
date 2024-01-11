@@ -7,6 +7,10 @@ TagManager:
   - Enemy
   - Nuke
   - GunPower
+  - Block
+  - HealthKit
+  - LevelTrigger
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -17,8 +21,8 @@ TagManager:
   - Background
   - PowerUp
   - Enemy
-  - 
-  - 
+  - Block
+  - Player
   - 
   - 
   - 
@@ -41,15 +45,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Background
-    uniqueID: 1752875057
-    locked: 0
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: PowerUp
     uniqueID: 2504272417
     locked: 0
+  - name: Background
+    uniqueID: 1752875057
+    locked: 0
   - name: Enemy
     uniqueID: 525580289
+    locked: 0
+  - name: Block
+    uniqueID: 4231580299
+    locked: 0
+  - name: Player
+    uniqueID: 3694294617
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0
