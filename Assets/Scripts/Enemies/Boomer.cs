@@ -10,23 +10,43 @@ public class Boomer : Enemy
     private Bullet bulletPrefab;
     private int numberOfBullets = 8;
 
+    private Vector3 screenPoint;
+    Camera mainCamera;
+    private bool inScene = false;
 
     protected override void Start()
     {
         base.Start();
         SetEnemyType(EnemyType.Boomer);
         health = new Health(1, 1, 0);
+        mainCamera = Camera.main;
     }
-
+    
     protected override void Update()
     {
         base.Update();
-        //Debug.Log($"position: {transform.position}, target: {target.position}");
-        //Debug.Log($"distance: {Vector2.Distance(transform.position, target.position)}");
-        if (Vector2.Distance(transform.position, target.position) <= BoomRadius)
-        { 
-            Boom();
+        if (target == null)
+        {
+            return;
         }
+        //check if enemy in Scene
+        screenPoint = mainCamera.WorldToViewportPoint(this.transform.position);
+
+        if (screenPoint.x >= 0 && screenPoint.x <= 1 &&
+            screenPoint.y >= 0 && screenPoint.y <= 1 &&
+            screenPoint.z > 0)
+        {
+            // The object is within the camera's view
+            inScene = true;
+        }
+        if (inScene)
+        {
+            if (Vector2.Distance(transform.position, target.position) <= BoomRadius)
+            {
+                Boom();
+            }
+        }
+        
         
     }
 
@@ -41,7 +61,6 @@ public class Boomer : Enemy
             newBullet[i] = GameObject.Instantiate(bulletPrefab, this.transform.position, rotation);
             newBullet[i].SetBullet(damage, "Player", bulletPrefab.GetSpeed());
             GameObject.Destroy(newBullet[i].gameObject, 5.0f); // Destroy each bullet after 5 seconds
-            
         }
 
         Destroy(gameObject);
@@ -55,7 +74,7 @@ public class Boomer : Enemy
 
     public void SetBoomer(float _BoomRadius, float _damage, Bullet _bulletPrefab)
     {
-        Debug.Log("set boomer");
+        //Debug.Log("set boomer");
         this.BoomRadius = _BoomRadius;
         this.damage = _damage;
         this.bulletPrefab = _bulletPrefab;
