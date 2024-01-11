@@ -9,7 +9,7 @@ public class BlockManager : MonoBehaviour
     [SerializeField] GameObject basicBlockPref;
     [SerializeField] private GameObject[] blockDisplay;
 
-    private int blockNum = 3;
+    private int blockNumInHold = 3;
     private int maxBlock = 3;
     private float cooldownDuration = 3.0f; // Cooldown duration in seconds
     private float cooldownTimer = 0.0f; // Timer to track cooldown
@@ -66,6 +66,7 @@ public class BlockManager : MonoBehaviour
         bool BlockEnabled = GameManager.GetInstance().levelManager.GetPowerUp()[2];
         if (BlockEnabled)
         {
+
             if (!startActive)
             {
                 startActive = true;
@@ -85,7 +86,7 @@ public class BlockManager : MonoBehaviour
     public void SpawnBlock()
     {
         
-        if (blockNum == 0 || !startActive)
+        if (blockNumInHold == 0 || !startActive)
         {
             return;
         }
@@ -104,21 +105,22 @@ public class BlockManager : MonoBehaviour
     }
     public void AddBlock()
     {
-        if (blockNum == 3)
+        Debug.Log("addblock");
+        if (blockNumInHold == 3)
         {
             return;
         }
         Debug.Log("enable Block for player");
-        blockDisplay[blockNum].GetComponent<Image>().enabled = true;
-        blockNum++;
+        blockDisplay[blockNumInHold].GetComponent<Image>().enabled = true;
+        blockNumInHold++;
     }
 
 
     public void UpdateRemainBlock()
     {
         Debug.Log("UpdateRemainBlock");
-        blockDisplay[blockNum-1].GetComponent<Image>().enabled = false;
-        blockNum--;
+        blockDisplay[blockNumInHold-1].GetComponent<Image>().enabled = false;
+        blockNumInHold--;
         
     }
 
@@ -127,6 +129,18 @@ public class BlockManager : MonoBehaviour
         //if blocks destroyed in the scene
         isCooldownActive = true;//start the cooldown process to generate new for player to use
         blockInScene -= 1;
+    }
+
+    public void ResetBlock()
+    {
+        Debug.Log("reset block");
+        isCooldownActive = true;//start the cooldown process to generate new for player to use
+        blockInScene = 0;
+        blockNumInHold = 3;
+        for (int i = 0; i < blockDisplay.Length; i++)
+        {
+            blockDisplay[i].GetComponent<Image>().enabled = true;
+        }
     }
 
 

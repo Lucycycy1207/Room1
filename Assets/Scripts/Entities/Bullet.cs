@@ -41,10 +41,11 @@ public class Bullet : MonoBehaviour
         {
             damageble.GetDamage(damage);
 
-            if (damageble.GetType().Name != "Player")
+            if ((damageble.GetType().Name != "BasicBlock") && (damageble.GetType().Name != "Player"))
             {
                 GameManager.GetInstance().scoreManager.IncrementScore();
                 Debug.Log($"Damaged Something: " + damageble.GetType().Name);
+
             }
                 
             

@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
     public ScoreManager scoreManager;
     public UIManager UIManager;
     public LevelManager levelManager;
+    public BlockManager blockManager;
     public PlayerData playerData;
 
 
@@ -302,6 +303,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(blockList[i].gameObject);
         }
+        if (levelManager.GetPowerUp()[2])//the block is enabled
+            blockManager.ResetBlock();
     }
 
     /// <summary>

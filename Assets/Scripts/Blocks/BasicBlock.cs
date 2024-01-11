@@ -28,6 +28,11 @@ public class BasicBlock : BlockObject
         Destroy(gameObject);
     }
 
+    private void Update()
+    {
+        
+    }
+
     public void SetBasicBlock(float _maxHealth)
     {
         maxHealth = _maxHealth;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class UIManager : MonoBehaviour
@@ -12,9 +13,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject levelTxt;
 
     [Header("PowerUp hint")]
+    [SerializeField] private GameObject WASD;
+    [SerializeField] private GameObject LeftKey;
     [SerializeField] private GameObject GunPowerUpTxt;
     [SerializeField] private GameObject NukeTxt;
     [SerializeField] private GameObject BlockTxt;
+    
 
     private void Start()
     {
@@ -26,6 +30,10 @@ public class UIManager : MonoBehaviour
     {
         EnabledUI(levelTxt, Color.red);
         int currLevel = GameManager.GetInstance().GetLevel();
+        if (currLevel == 1)
+        {
+            UpdateBasicControlHint();
+        }
         levelTxt.GetComponent<TMP_Text>().SetText("LEVEL " + currLevel.ToString("00"));
         DisableUI(levelTxt, Color.red, 1);
     }
@@ -37,13 +45,13 @@ public class UIManager : MonoBehaviour
         {
             Color UIcolor = UItext.GetComponent<TextMeshProUGUI>().color;
            
-            StartCoroutine(LerpColor(UItext, 2, OriColor, pauseTime));
+            StartCoroutine(LerpColorText(UItext, 2, OriColor, pauseTime));
             
             // Disable the UI element
             //levelTxt.SetActive(false);
         }
     }
-    IEnumerator LerpColor(GameObject UItext, float durationTime, Color OriColor, float pauseTime)
+    IEnumerator LerpColorText(GameObject UItext, float durationTime, Color OriColor, float pauseTime)
     {
         yield return new WaitForSeconds(pauseTime);
 
@@ -60,8 +68,24 @@ public class UIManager : MonoBehaviour
             yield return null;//yield control to other scripts
         }
         UItext.GetComponent<TextMeshProUGUI>().color = Color.clear;
+    }
+    IEnumerator LerpColorImage(GameObject UItext, float durationTime, Color OriColor, float pauseTime)
+    {
+        yield return new WaitForSeconds(pauseTime);
 
+        Color LerpedColor;
 
+        float elapsedTime = 0f;
+
+        while (elapsedTime < durationTime)
+        {
+            LerpedColor = Color.Lerp(OriColor, Color.clear, elapsedTime / durationTime);
+            UItext.GetComponent<Image>().color = LerpedColor;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;//yield control to other scripts
+        }
+        UItext.GetComponent<Image>().color = Color.clear;
     }
 
     void EnabledUI(GameObject UI, Color oriColor)
@@ -75,6 +99,17 @@ public class UIManager : MonoBehaviour
             //Debug.Log("set level txt active");
             
         }
+    }
+
+    public void UpdateBasicControlHint()
+    {
+        WASD.SetActive(true);
+        LeftKey.SetActive(true);
+        //DisableUI(WASD, Color.white, 3);
+        Color UIcolor = WASD.GetComponent<Image>().color;
+        StartCoroutine(LerpColorImage(WASD, 2, Color.white, 1));
+
+        DisableUI(LeftKey, LeftKey.GetComponent<TextMeshProUGUI>().color, 1);
     }
 
     public void UpdatePowerUpHint()
