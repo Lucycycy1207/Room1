@@ -25,6 +25,14 @@ public class ScoreManager : MonoBehaviour
     {
         score++;
         SetHighScore();
+        Debug.Log("increment score: " + score);
+        OnScoreUpdated?.Invoke();
+    }
+
+    public void SetScore(int value)
+    {
+        score = value;
+        Debug.Log("set score: " + score);
         OnScoreUpdated?.Invoke();
     }
 
@@ -57,4 +65,6 @@ public class ScoreManager : MonoBehaviour
     {
         
     }
+
+
 }

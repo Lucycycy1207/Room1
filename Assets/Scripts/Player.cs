@@ -13,7 +13,7 @@ public class Player: PlayableObject
     [SerializeField] private float weaponDamage = 1;
     [SerializeField] private float bulletSpeed = 10.0f;
     [SerializeField] private Bullet bulletPrefab;
-    private Health playerHealth;
+    
 
     [Header("Other Scripts")]
     [SerializeField] private PickupSpawner pickUpSpawner;
@@ -22,8 +22,12 @@ public class Player: PlayableObject
     [Header("PickUps")]
     [SerializeField] private GameObject[] nukeDisplay;
     [SerializeField] private GameObject GunPowerImg;
+    
+
     private int nukeNum = 0;
     private int maxNuke = 3;
+
+    
 
     private int gunPowerMode = 0;
 
@@ -35,34 +39,45 @@ public class Player: PlayableObject
 
 
     private Rigidbody2D playerRB;
-    public float GetHealth()
-    {
-        return playerHealth.GetHealth();
-    }
 
     public override void Shoot()//Vector3 direction, float speed
     {
         weapon.Shoot(bulletPrefab, this, "Enemy");
     }
 
-
+    public void ResetPlayerTranform()
+    {
+        this.transform.position = new Vector2(0, 0);
+        this.transform.rotation = Quaternion.identity;
+    }
+   
     public override void Die()
     {
         Debug.Log("Player Died");
-        
-        Destroy(this.gameObject);
+        GameManager.GetInstance().RestoreLevel();
+        //this.gameObject.SetActive(false);
+    }
+
+    public void ResetHealth()
+    {
+        health = new Health(100f, 100f, 0.5f);
     }
 
     private void Start()
     {
-        playerHealth = new Health(100f, 100f, 0.5f);
+        health = new Health(100f, 100f, 0.5f);
         GameManager.GetInstance().UIManager.UpdateHealth();
         //health = new Health(100f, 100f, 0.5f);
         playerRB = GetComponent<Rigidbody2D>();
-        Debug.Log("Player health value is " + playerHealth.GetHealth());
+        //Debug.Log("Player health value is " + health.GetHealth());
         //Set Player Weapon
         weapon = new Weapon("Player Weapon", weaponDamage, bulletSpeed);
         GunPowerImg.SetActive(false);
+
+        for (int i = 0; i < nukeDisplay.Length; i++)
+        {
+            nukeDisplay[i].GetComponent<Renderer>().enabled = false;
+        }
         
     }
 
@@ -94,10 +109,8 @@ public class Player: PlayableObject
                     {
                         Shoot();
                         timer = 0;
-                    }
-                        
+                    } 
                 }
-                
             }
             else
             {
@@ -107,10 +120,9 @@ public class Player: PlayableObject
                 GunPowerImg.SetActive(false);
                 shootTimer = 0;
             }
-            
         }
 
-        playerHealth.RegenerateHealth();
+        health.RegenerateHealth();
         GameManager.GetInstance().UIManager.UpdateHealth();
 
     }
@@ -143,12 +155,13 @@ public class Player: PlayableObject
 
     public override void GetDamage(float damage)
     {
-        Debug.Log("Player Damaged: " + damage);
+        //Debug.Log("Player Damaged: " + damage);
 
         
-        playerHealth.DeductHealth(damage);
-        if (playerHealth.GetHealth() <= 0)
+        health.DeductHealth(damage);
+        if (health.GetHealth() <= 0)
         {
+            GameManager.GetInstance().UIManager.UpdateHealth();
             Die();
         }
     }
@@ -183,7 +196,7 @@ public class Player: PlayableObject
     public void AddGunPower()
     {
         //Add a GunPower to the player here!
-        Debug.Log("add GunPower to player");
+        //Debug.Log("add GunPower to player");
         gunPowerMode = 1;
     }
 
@@ -191,12 +204,12 @@ public class Player: PlayableObject
     {
         if (collision.gameObject.CompareTag("Nuke"))
         {
-            Debug.Log("Collide with Nuke");
+            //Debug.Log("Collide with Nuke");
             pickUpSpawner.OnPickedNuke(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("GunPower"))
         {
-            Debug.Log("Collide with GunPower");
+            //Debug.Log("Collide with GunPower");
             GunPowerImg.SetActive(true);
             gunPower.ResetGunPowerImg();
             shootTimer = 0;
@@ -206,8 +219,11 @@ public class Player: PlayableObject
             this.GetComponent<PlayerInput>().ActiveGunPowerMode();
         }
 
-        
-
+        else if (collision.gameObject.CompareTag("LevelTrigger"))
+        {
+            Debug.Log("touched levelTrigger");
+            GameManager.GetInstance().levelManager.TriggerLevel();
+        }
 
     }
 }
