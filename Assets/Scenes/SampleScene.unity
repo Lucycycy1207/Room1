@@ -740,6 +740,7 @@ Transform:
   - {fileID: 1450798526766695339}
   - {fileID: 4816987212057972652}
   - {fileID: 785185478749410249}
+  - {fileID: 47043777775917240}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
@@ -1643,6 +1644,9 @@ MonoBehaviour:
   boomDamage: 5
   dividerAttackRange: 10
   dividerAttackTime: 1
+  timeSinceLastShot: 0
+  timeBetweenShots: 0.3
+  rotationSpeed: 30
   scoreManager: {fileID: 1829691362}
   UIManager: {fileID: 1514046026}
   levelManager: {fileID: 337968029}
@@ -5202,10 +5206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740185b5cfdb6fe41b83f68a4a195b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  moveSpeed: 5
-  rotationSpeed: 100
-  targetLocations: []
 --- !u!114 &6329632815691952277
 MonoBehaviour:
   m_ObjectHideFlags: 0
