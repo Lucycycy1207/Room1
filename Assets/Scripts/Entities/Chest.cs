@@ -10,6 +10,7 @@ public class Chest : MonoBehaviour
         if (other.gameObject.CompareTag("Bullet"))
         {
             GameManager.GetInstance().levelManager.SpawnNewPowerUp(this.gameObject.transform.position);
+            GameManager.GetInstance().UIManager.UpdatePowerUpHint();
             Destroy(this.gameObject);
         }
     }

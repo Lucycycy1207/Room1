@@ -53,16 +53,20 @@ public class LevelManager : MonoBehaviour
         GunPowerEnabled = true;
     }
 
-
+    
     public void LoadLevel(int level)
     {
-        
-        currChest = Instantiate(chestPref);
-        currChest.SetActive(false);
-        
         currentLevel = level;
         Debug.Log($"Load new level: {level}");
+        GameManager.GetInstance().UIManager.UpdateLevel();
+        if (level <= 3)
+        {
+            currChest = Instantiate(chestPref);
+            currChest.SetActive(false);
+        }
         
+
+
         // Load level elements based on level data
         // Limit enemy spawns, Player Health, initialize score.
 
@@ -112,6 +116,10 @@ private void Update()
         {
             return;
         }
+
+        //TODO: boss level
+
+        //for enemy levels 1-7
         if (GameManager.GetInstance().EnemyKilledInLevel(currentLevel) <= GameManager.GetInstance().scoreManager.GetScore())
         {
             
@@ -131,10 +139,13 @@ private void Update()
             
             Debug.Log($"current level: {currentLevel}, checkedLevel: {checkedLevel}");
 
-            GameManager.GetInstance().PauseEnemySpawning = true;
-            GameManager.GetInstance().DestroyEntities();
-            GameManager.GetInstance().DestroyCollectable();
+            GameManager.GetInstance().restoreLevelScore();
+            GameManager.GetInstance().cleanScene();
+            
         }
+        
+
+        
     }
 
 
@@ -154,5 +165,9 @@ private void Update()
     public void SetMaxLevel(int _maxLevel)
     {
         maxLevel = _maxLevel;
+    }
+    public int GetMaxLevel()
+    {
+        return maxLevel;
     }
 }

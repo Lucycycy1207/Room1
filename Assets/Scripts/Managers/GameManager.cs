@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Variables")]
     [SerializeField] private float enemySpawnRate;
+    [SerializeField] private float SpawnLevelUpPercent;
     [SerializeField] private Bullet bulletPrefab;
 
         
@@ -64,7 +65,8 @@ public class GameManager : MonoBehaviour
     [Header("Managers")]
     public ScoreManager scoreManager;
     public UIManager UIManager;
-    public LevelManager levelManager;   
+    public LevelManager levelManager;
+    public PlayerData playerData;
 
 
     private GameObject tempEnemy;
@@ -171,7 +173,17 @@ public class GameManager : MonoBehaviour
         //GetEnemySpawn();
     }
 
-    
+    public void restoreLevelScore()
+    {
+        playerData.UpdateHistoryLevelScore(scoreManager.GetScore());
+    }
+    public void cleanScene()
+    {
+        Debug.Log("clean scene");
+        PauseEnemySpawning = true;
+        DestroyEntities();
+        DestroyCollectable();
+    }
 
     private void CreateEnemy(int enemyAmount)
     {
@@ -187,7 +199,7 @@ public class GameManager : MonoBehaviour
             {
                 tempEnemy.GetComponent<MeleeEnemy>().SetMeleeEnemy(MeleeAttackRange, MeleeAttackTime, MeleeDamage);
                 break;
-            }
+                }
             case 1:
             {
                 tempEnemy.GetComponent<Exploder>().SetExploder(ExplodeRange, ExplodeDamage);
@@ -218,30 +230,42 @@ public class GameManager : MonoBehaviour
                 tempEnemy.GetComponent<Divider>().weapon = DividerGun;
                 break;
             }
-            //case 6:
-            //    {
-            //        tempEnemy.GetComponent<SpiralShooter>().SetSpiralShooter(0.1f, bulletPrefab);
-            //        tempEnemy.GetComponent<SpiralShooter>().weapon = SpiralWeapon;
-            //        break;
-            //    }
+            case 6:
+                {
+                    tempEnemy.GetComponent<SpiralShooter>().SetSpiralShooter(0.1f, bulletPrefab);
+                    tempEnemy.GetComponent<SpiralShooter>().weapon = SpiralWeapon;
+                    break;
+                }
 
 
 
         }
 
     }
-
+    public void RestoreLevel()
+    {
+        DestroyEntities();
+        DestroyCollectable();
+        //Reset player position to centre
+        player.GetComponent<Player>().ResetPlayerTranform();
+        player.ResetHealth();
+        UIManager.UpdateHealth();
+        UIManager.UpdateLevel();
+        Debug.Log($"restore player health: {player.health}");
+      
+    }
 
     IEnumerator EnemySpawner()
     {
         while (isEnemySpawning)
         {
-            yield return new WaitForSeconds(1.0f / enemySpawnRate);
+            int currLevel = levelManager.GetCurrLevel();//SpawnLevelUpPercent=0.1, 0.3 diff in time
+            //Debug.Log(1.0f / (enemySpawnRate * (1 + (currLevel * SpawnLevelUpPercent))));
+            yield return new WaitForSeconds(1.0f / (enemySpawnRate*(1+ (currLevel * SpawnLevelUpPercent))));
             if (!PauseEnemySpawning)
             {
                 if (player != null)
                 {
-                    int currLevel = levelManager.GetCurrLevel();
                     //Debug.Log($"create enemy");
                     CreateEnemy(enemyNumPerLevel[currLevel - 1]);
                 }
@@ -269,8 +293,8 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < bulletList.Length; i++)
         {
-Destroy(bulletList[i].gameObject);
-}
+            Destroy(bulletList[i].gameObject);
+        }
 
         var blockList = FindObjectsOfType<BasicBlock>();
 

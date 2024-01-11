@@ -41,8 +41,14 @@ public class Bullet : MonoBehaviour
         {
             damageble.GetDamage(damage);
 
-            GameManager.GetInstance().scoreManager.IncrementScore();
-            //Debug.Log($"Damaged Something");
+            if (damageble.GetType().Name != "Player")
+            {
+                GameManager.GetInstance().scoreManager.IncrementScore();
+                Debug.Log($"Damaged Something: " + damageble.GetType().Name);
+            }
+                
+            
+            
             Destroy(gameObject);
         }
     }

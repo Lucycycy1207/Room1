@@ -34,7 +34,7 @@ public class Exploder : Enemy
 
     public void Explode(float radius)
     {
-        Debug.Log($"explode with radius {radius}");
+        //Debug.Log($"explode with radius {radius}");
         
         target.GetComponent<IDamageable>().GetDamage(damage);
         Destroy(gameObject);

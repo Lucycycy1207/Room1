@@ -54,8 +54,13 @@ public class Player: PlayableObject
     public override void Die()
     {
         Debug.Log("Player Died");
-        
-        Destroy(this.gameObject);
+        GameManager.GetInstance().RestoreLevel();
+        //this.gameObject.SetActive(false);
+    }
+
+    public void ResetHealth()
+    {
+        health = new Health(100f, 100f, 0.5f);
     }
 
     private void Start()

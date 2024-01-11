@@ -39,7 +39,7 @@ public class SpiralShooter : Enemy
 
         // Fire a bullet every 10 degrees
         timeSinceLastShot += Time.deltaTime;
-        Debug.Log($"timeSinceLastShot:{timeSinceLastShot}, timeBetweenShots: {timeBetweenShots}");
+        //Debug.Log($"timeSinceLastShot:{timeSinceLastShot}, timeBetweenShots: {timeBetweenShots}");
         if (timeSinceLastShot >= timeBetweenShots)
         {
             Shoot();
