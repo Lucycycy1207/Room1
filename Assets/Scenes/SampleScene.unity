@@ -2722,7 +2722,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &101660758004627085
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3078,7 +3078,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &1576426306638610348
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3217,6 +3217,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -45
       objectReference: {fileID: 0}
+    - target: {fileID: 2591704989455368985, guid: 6e2907623ade50845b370dbce681acad, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2804664867671709445, guid: 6e2907623ade50845b370dbce681acad, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.6
@@ -3244,6 +3248,14 @@ PrefabInstance:
     - target: {fileID: 2804664867671709445, guid: 6e2907623ade50845b370dbce681acad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 3978429036547932793, guid: 6e2907623ade50845b370dbce681acad, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864050466688829685, guid: 6e2907623ade50845b370dbce681acad, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4975440986041247796, guid: 6e2907623ade50845b370dbce681acad, type: 3}
       propertyPath: AttackInterval
@@ -3525,7 +3537,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &3274393326496333887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3831,7 +3843,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &4572396907308271121
 BoxCollider2D:
   m_ObjectHideFlags: 0
