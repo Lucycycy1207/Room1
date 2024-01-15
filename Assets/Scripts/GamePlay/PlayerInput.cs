@@ -14,7 +14,6 @@ public class PlayerInput : MonoBehaviour
     private Player player;
     private float horizontal, vertical;
 
-    public BlockManager blockManager;
     /// <summary>
     /// This variable represents position of mouse.
     /// </summary>
@@ -44,7 +43,7 @@ public class PlayerInput : MonoBehaviour
         {
             if (GunPowerMode)
             {
-                //Debug.Log("player shooting in power mode");
+                Debug.Log("player shooting in power mode");
                 GunPowerShootingOn?.Invoke();
             }
             else
@@ -57,7 +56,7 @@ public class PlayerInput : MonoBehaviour
         {
             if (GunPowerMode)
             {
-                //Debug.Log("player stop shooting in power mode");
+                Debug.Log("player stop shooting in power mode");
                 GunPowerShootingOff?.Invoke();
             }
         }
@@ -66,17 +65,10 @@ public class PlayerInput : MonoBehaviour
             player.UseNuke();
         }
 
-        else if (Input.GetKeyDown(KeyCode.Q))
-        {
-            //Debug.Log("pressed Q");
-            blockManager.SpawnBlock();
-        }
-
     }
 
     private void FixedUpdate()
     {
-        
         player.Move(new Vector2(horizontal, vertical), lookTarget);
     }
 
