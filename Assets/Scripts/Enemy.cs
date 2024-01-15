@@ -45,29 +45,26 @@ public class Enemy: PlayableObject
 
     public override void Die()
     {
-        //Debug.Log("Enemy Died");
+        Debug.Log("Enemy Died");
+        
+        //generate Nuke
+
         float randomValue = Random.Range(0f, 1f);
         GameObject NukePref = GameManager.GetInstance().GetNukePrefab();
         GameObject GunPowerPref = GameManager.GetInstance().GetGunPowerPrefab();
-        GameObject HealthKitPref = GameManager.GetInstance().GetHealthKitPrefab();
+        
         float NukeProb = GameManager.GetInstance().GetNukeSpawnProb();
         float GunPowerProb = GameManager.GetInstance().GetGunPowerSpawnProb();
-        float HealthKitProb = GameManager.GetInstance().GetHealthKitSpawnProb();
-
-        bool[] powerUpenabled = GameManager.GetInstance().levelManager.GetPowerUp();
-        if ((randomValue < NukeProb) && powerUpenabled[0])
+        Debug.Log(NukeProb + GunPowerProb);
+        if (randomValue < NukeProb)
         {
             Instantiate(NukePref, transform.position, Quaternion.identity);
         }
-        else if ((randomValue < NukeProb + GunPowerProb) && powerUpenabled[1])
+        //if (randomValue < NukeProb + GunPowerProb)
+        else
         {
             Instantiate(GunPowerPref, transform.position, Quaternion.identity);
         }
-        else if ((randomValue < NukeProb + GunPowerProb + HealthKitProb))
-        {
-            Instantiate(HealthKitPref, transform.position, Quaternion.identity);
-        }
-
         Destroy(gameObject);
 
 
