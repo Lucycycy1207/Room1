@@ -8,7 +8,7 @@ public class Test : MonoBehaviour
     void Start()
     {
 
-        Debug.Log(Utilities.CalculateSomeValue(2, 3));
+        //Debug.Log(Utilities.CalculateSomeValue(2, 3));
     }
 
     

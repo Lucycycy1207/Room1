@@ -17,7 +17,7 @@ public class LaserController : MonoBehaviour
 
     public void SetUpLaser(Transform player, Transform enemy)
     {
-        Debug.Log("set up laser");
+        //Debug.Log("set up laser");
         this.player = player;
         this.enemy = enemy;
     }

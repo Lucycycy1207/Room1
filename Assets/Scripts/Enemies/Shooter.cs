@@ -33,7 +33,10 @@ public class Shooter : Enemy
     protected override void Update()
     {
         base.Update();//move object
-
+        if (target == null)
+        {
+            return;
+        }
         screenPoint = mainCamera.WorldToViewportPoint(this.transform.position);
 
         if (screenPoint.x >= 0 && screenPoint.x <= 1 &&

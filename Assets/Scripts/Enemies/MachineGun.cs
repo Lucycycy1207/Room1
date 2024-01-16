@@ -33,6 +33,10 @@ public class MachineGun : Enemy
     {
 
         base.Update();//move object
+        if (target == null)
+        {
+            return;
+        }
 
         //check if enemy in Scene
         screenPoint = mainCamera.WorldToViewportPoint(this.transform.position);
@@ -45,7 +49,10 @@ public class MachineGun : Enemy
             inScene = true;
         }
         if (inScene == true) {
-            
+            if (target == null)
+            {
+                return;
+            }
             if (Vector2.Distance(transform.position, target.position) < attackRange)
             {
                 Attack(shootingRate);
