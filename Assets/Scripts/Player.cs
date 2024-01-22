@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player: PlayableObject
 {
@@ -68,8 +69,10 @@ public class Player: PlayableObject
     public override void Die()
     {
         Debug.Log("Player Died");
-        GameManager.GetInstance().RestoreLevel();
+        //GameManager.GetInstance().RestoreLevel();
         //this.gameObject.SetActive(false);
+        GameOver();
+        
     }
 
     public void ResetHealth()
@@ -236,8 +239,14 @@ public class Player: PlayableObject
         else if (collision.gameObject.CompareTag("LevelTrigger"))
         {
             Debug.Log("touched levelTrigger");
-            GameManager.GetInstance().levelManager.TriggerLevel();
+            //GameManager.GetInstance().levelManager.TriggerLevel();
+
         }
 
+    }
+
+    private void GameOver()
+    {
+        SceneManager.LoadScene("GameOver");
     }
 }
