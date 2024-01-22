@@ -39,10 +39,24 @@ public class Player: PlayableObject
 
 
     private Rigidbody2D playerRB;
+    [SerializeField] private AudioClip shootAudio;
+    AudioSource audioSource;
 
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     public override void Shoot()//Vector3 direction, float speed
     {
         weapon.Shoot(bulletPrefab, this, "Enemy");
+
+      
+        if (audioSource != null && shootAudio != null)
+        {
+            audioSource.PlayOneShot(shootAudio);
+        }
+
     }
 
     public void ResetPlayerTranform()
