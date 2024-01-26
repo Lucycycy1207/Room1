@@ -13,7 +13,12 @@ GameObject:
   - component: {fileID: 8950054371881022724}
   - component: {fileID: 7976904420001201865}
   - component: {fileID: 619441467580251364}
+<<<<<<< Updated upstream:Assets/Prefabs/MachineGunEnemy.prefab
   m_Layer: 0
+=======
+  - component: {fileID: 7303855292377886008}
+  m_Layer: 8
+>>>>>>> Stashed changes:Assets/Prefabs/EnemiesPref/MachineGunEnemy.prefab
   m_Name: MachineGunEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -48,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+  anim: {fileID: 7303855292377886008}
 --- !u!212 &8950054371881022724
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -172,3 +178,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &7303855292377886008
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521384534540981137}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4d901c9fd27cf4e419eebec8ef52fc5a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
