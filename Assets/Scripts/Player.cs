@@ -239,7 +239,7 @@ public class Player: PlayableObject
         else if (collision.gameObject.CompareTag("LevelTrigger"))
         {
             Debug.Log("touched levelTrigger");
-            //GameManager.GetInstance().levelManager.TriggerLevel();
+            GameManager.GetInstance().levelManager.TriggerLevel();
 
         }
 
