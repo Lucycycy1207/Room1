@@ -84,26 +84,26 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnNewPowerUp(Vector2 transformPos)
     {
-        Debug.Log("spawn new weapon");
+        //Debug.Log("spawn new weapon");
        
         if (currentLevel == 1)
         {
             GameObject GunPowerPref = GameManager.GetInstance().GetGunPowerPrefab();
             Instantiate(GunPowerPref, transformPos, Quaternion.identity);
             GunPowerEnabled = true;
-            Debug.Log("GunPowerEnabled ");
+            //Debug.Log("GunPowerEnabled ");
         }
         else if (currentLevel == 2)
         {
             GameObject NukePref = GameManager.GetInstance().GetNukePrefab();
             Instantiate(NukePref, transformPos, Quaternion.identity);
             NukeEnabled = true;
-            Debug.Log("NukeEnabled ");
+            //Debug.Log("NukeEnabled ");
         }
         else if (currentLevel == 3)
         {
-            Debug.Log("activate blocks");
-            Debug.Log("BLockEnabled ");
+            //Debug.Log("activate blocks");
+            //Debug.Log("BLockEnabled ");
             Instantiate(BlockPref, transformPos, Quaternion.identity);
         }
 
@@ -137,7 +137,7 @@ private void Update()
                 currChest.SetActive(true);
             }
             
-            Debug.Log($"current level: {currentLevel}, checkedLevel: {checkedLevel}");
+            //Debug.Log($"current level: {currentLevel}, checkedLevel: {checkedLevel}");
 
             GameManager.GetInstance().restoreLevelScore();
             GameManager.GetInstance().cleanScene();
