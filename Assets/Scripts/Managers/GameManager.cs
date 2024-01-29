@@ -187,7 +187,7 @@ public class GameManager : MonoBehaviour
     }
     public void cleanScene()
     {
-        Debug.Log("clean scene");
+        //Debug.Log("clean scene");
         PauseEnemySpawning = true;
         DestroyEntities();
         DestroyCollectable();

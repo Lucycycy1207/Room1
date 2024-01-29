@@ -19,7 +19,7 @@ public class PlayerData : MonoBehaviour
     public void UpdateHistoryLevelScore(int score)
     {
         PlayerPrefs.SetInt("LEVELSCORE", score);
-        Debug.Log("update history: " + score);
+        //Debug.Log("update history: " + score);
     }
 
     public int GetHistoryScore()

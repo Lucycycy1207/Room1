@@ -28,7 +28,7 @@ public class SpiralShooter : Enemy
         transform.Rotate(Vector3.forward, -rotationSpeed * Time.deltaTime);
 
         timeSinceLastShot += Time.deltaTime;
-        Debug.Log($"timeSinceLastShot:{timeSinceLastShot}, timeBetweenShots: {timeBetweenShots}");
+        //Debug.Log($"timeSinceLastShot:{timeSinceLastShot}, timeBetweenShots: {timeBetweenShots}");
 
         if (timeSinceLastShot >= timeBetweenShots)
         {

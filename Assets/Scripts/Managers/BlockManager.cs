@@ -70,7 +70,7 @@ public class BlockManager : MonoBehaviour
             if (!startActive)
             {
                 startActive = true;
-                Debug.Log("visible the block display");
+                //Debug.Log("visible the block display");
                 for (int i = 0; i < blockDisplay.Length; i++)
                 {
                     blockDisplay[i].SetActive(true);
@@ -100,17 +100,17 @@ public class BlockManager : MonoBehaviour
     {
         GameObject target = GameObject.FindWithTag("Player");
         Vector2 offset = new Vector2(2, 2);
-        Debug.Log($"Spawn basic Block with position {player.transform.position} and rotation {player.transform.rotation}");
+        //Debug.Log($"Spawn basic Block with position {player.transform.position} and rotation {player.transform.rotation}");
         GameObject newBlock = Instantiate(basicBlockPref, player.transform.Find("BlockSpawnPoint").position, player.transform.rotation);
     }
     public void AddBlock()
     {
-        Debug.Log("addblock");
+        //Debug.Log("addblock");
         if (blockNumInHold == 3)
         {
             return;
         }
-        Debug.Log("enable Block for player");
+        //Debug.Log("enable Block for player");
         blockDisplay[blockNumInHold].GetComponent<Image>().enabled = true;
         blockNumInHold++;
     }
@@ -118,7 +118,7 @@ public class BlockManager : MonoBehaviour
 
     public void UpdateRemainBlock()
     {
-        Debug.Log("UpdateRemainBlock");
+        //Debug.Log("UpdateRemainBlock");
         blockDisplay[blockNumInHold-1].GetComponent<Image>().enabled = false;
         blockNumInHold--;
         
@@ -133,7 +133,7 @@ public class BlockManager : MonoBehaviour
 
     public void ResetBlock()
     {
-        Debug.Log("reset block");
+        //Debug.Log("reset block");
         isCooldownActive = true;//start the cooldown process to generate new for player to use
         blockInScene = 0;
         blockNumInHold = 3;
