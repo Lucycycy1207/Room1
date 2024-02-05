@@ -11,6 +11,7 @@ public class SpiralShooter : Enemy
     
     Camera mainCamera;
 
+    [SerializeField] private Animator anim;
     protected override void Start()
     {
 
@@ -50,6 +51,12 @@ public class SpiralShooter : Enemy
         timeBetweenShots = _timeBetweenShots;
         bulletPrefab = _bulletPrefab;
 
+    }
+
+    public override void Die()
+    {
+        anim.SetBool("IsDead", true);
+        base.Die();
     }
 }
 

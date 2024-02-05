@@ -18,6 +18,7 @@ public class Shooter : Enemy
     private Camera mainCamera;
     private Vector3 screenPoint;
 
+    [SerializeField] private Animator anim;
     protected override void Start()
     {
         mainCamera = Camera.main;
@@ -111,6 +112,10 @@ public class Shooter : Enemy
         
     }
 
-
+    public override void Die()
+    {
+        anim.SetBool("IsDead", true);
+        base.Die();
+    }
 }
 

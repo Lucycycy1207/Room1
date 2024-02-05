@@ -19,6 +19,7 @@ public class MachineGun : Enemy
     //Camera mainCamera;
     private bool inScene = false;
 
+    [SerializeField] private Animator anim;
     protected override void Start()
     {
         base.Start();//define target
@@ -98,4 +99,9 @@ public class MachineGun : Enemy
         this.bulletPrefab = _bulletPrefab;
     }
 
+    public override void Die()
+    {
+        anim.SetBool("IsDead", true);
+        base.Die();
+    }
 }

@@ -21,6 +21,8 @@ public class Divider : Enemy
     //Camera mainCamera;
     private bool inScene = false;
 
+    [SerializeField] private Animator anim;
+
     protected override void Start()
     {
         base.Start();//define target
@@ -92,9 +94,10 @@ public class Divider : Enemy
         //store data
         Transform DividerTransform = this.transform;
 
-        // death BigEnemy
-        Destroy(this.gameObject);
+        anim.SetBool("IsDead", true);
 
+        // death BigEnemy
+        Destroy(this.gameObject, 0.6f);
 
 
 

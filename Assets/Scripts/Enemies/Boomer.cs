@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
+
 
 public class Boomer : Enemy
 {
@@ -13,6 +13,8 @@ public class Boomer : Enemy
     private Vector3 screenPoint;
     Camera mainCamera;
     private bool inScene = false;
+
+    [SerializeField] private Animator anim;
 
     protected override void Start()
     {
@@ -38,6 +40,7 @@ public class Boomer : Enemy
         {
             // The object is within the camera's view
             inScene = true;
+            anim.SetBool("InScene", true);
         }
         if (inScene)
         {
@@ -62,7 +65,7 @@ public class Boomer : Enemy
             newBullet[i].SetBullet(damage, "Player", bulletPrefab.GetSpeed());
             GameObject.Destroy(newBullet[i].gameObject, 5.0f); // Destroy each bullet after 5 seconds
         }
-
+        TriggerExplosionAnim();
         Destroy(gameObject);
     }
 
@@ -80,4 +83,8 @@ public class Boomer : Enemy
         this.bulletPrefab = _bulletPrefab;
     }
 
+    private void TriggerExplosionAnim()
+    {
+        anim.SetBool("IsDead", true);
+    }
 }
