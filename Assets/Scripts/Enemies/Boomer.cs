@@ -46,7 +46,9 @@ public class Boomer : Enemy
         {
             if (Vector2.Distance(transform.position, target.position) <= BoomRadius)
             {
+                
                 Boom();
+                
             }
         }
         
@@ -55,6 +57,7 @@ public class Boomer : Enemy
 
     private void Boom()
     {
+        
         float angleStep = 360.0f / numberOfBullets;
         Bullet [] newBullet = new Bullet[numberOfBullets];
         for (int i = 0; i < numberOfBullets; i++)
@@ -65,12 +68,13 @@ public class Boomer : Enemy
             newBullet[i].SetBullet(damage, "Player", bulletPrefab.GetSpeed());
             GameObject.Destroy(newBullet[i].gameObject, 5.0f); // Destroy each bullet after 5 seconds
         }
-        TriggerExplosionAnim();
-        Destroy(gameObject);
+        anim.SetBool("IsDead", true);
+        Destroy(gameObject, 0.6f);
     }
 
     public override void GetDamage(float damage)
     {
+        
         Boom();
         base.GetDamage(damage);
     }
@@ -83,8 +87,4 @@ public class Boomer : Enemy
         this.bulletPrefab = _bulletPrefab;
     }
 
-    private void TriggerExplosionAnim()
-    {
-        anim.SetBool("IsDead", true);
-    }
 }

@@ -42,6 +42,7 @@ public class Exploder : Enemy
     }
     public override void GetDamage(float damage)
     {
+        anim.SetBool("IsDead", true);
         base.GetDamage(damage);
     }
 
