@@ -15,6 +15,7 @@ public class Shooter : Enemy
     private float timer = 0;
 
     private bool InScene = false;
+    private bool AlreadyInScene = false;
     private Camera mainCamera;
     private Vector3 screenPoint;
 
@@ -46,20 +47,27 @@ public class Shooter : Enemy
         {
             InScene = true;
         }
-        if (InScene)
-        {
-            if (Vector2.Distance(transform.position, target.position) < attackRange
-                && square.GetComponent<Renderer>().isVisible)
-            {
 
-                laser.SetActive(true);
-                Attack(shootingRate);
-            }
-            else
+        if (!AlreadyInScene)
+        {
+            if (InScene)
             {
-                laser.SetActive(false);
+                AlreadyInScene = true;
+
+                if (Vector2.Distance(transform.position, target.position) < attackRange
+                    && square.GetComponent<Renderer>().isVisible)
+                {
+
+                    laser.SetActive(true);
+                    Attack(shootingRate);
+                }
+                else
+                {
+                    laser.SetActive(false);
+                }
             }
         }
+        
         
     }
 
@@ -114,8 +122,15 @@ public class Shooter : Enemy
 
     public override void Die()
     {
+        Debug.Log("shooter die");
+        Destroy(laser);
+
         anim.SetBool("IsDead", true);
+
+
+
         base.Die();
+
     }
 }
 
