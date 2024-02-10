@@ -19,6 +19,8 @@ public class Shooter : Enemy
     private Camera mainCamera;
     private Vector3 screenPoint;
 
+    private bool functioning = true;
+
     [SerializeField] private Animator anim;
     protected override void Start()
     {
@@ -34,6 +36,8 @@ public class Shooter : Enemy
 
     protected override void Update()
     {
+        if (!functioning) return;
+
         base.Update();//move object
         if (target == null)
         {
@@ -105,11 +109,15 @@ public class Shooter : Enemy
 
     public override void GetDamage(float damage)
     {
-        base.GetDamage(damage);
-        if (health.GetHealth() <= 0)
+        if (InScene)
         {
-            Destroy(laser);
+            base.GetDamage(damage);
+            if (health.GetHealth() <= 0)
+            {
+                Destroy(laser);
+            }
         }
+        
     }
 
     public void SetShooter(float _attackRange, float _shootingRate, Bullet _bulletPrefab)
@@ -123,6 +131,7 @@ public class Shooter : Enemy
     public override void Die()
     {
         Debug.Log("shooter die");
+        functioning = false;
         Destroy(laser);
 
         anim.SetBool("IsDead", true);

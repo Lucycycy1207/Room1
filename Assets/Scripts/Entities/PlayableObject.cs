@@ -28,5 +28,6 @@ public abstract class PlayableObject : MonoBehaviour, IDamageable
         {
             Die();
         }
+        
     }
 }
