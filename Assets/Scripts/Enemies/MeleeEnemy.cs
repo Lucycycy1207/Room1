@@ -10,6 +10,7 @@ public class MeleeEnemy : Enemy
 
     private float timer = 0;
 
+    [SerializeField] private Animator anim;
     protected override void Start()
     {
         base.Start();
@@ -58,5 +59,11 @@ public class MeleeEnemy : Enemy
         this.attackRange = _attackRange;
         this.attackTime = _attackTime;
         this.damage = _damage;
+    }
+
+    public override void Die()
+    {
+        anim.SetBool("IsDead", true);
+        base.Die();
     }
 }

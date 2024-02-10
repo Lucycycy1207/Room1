@@ -68,7 +68,7 @@ public class Enemy: PlayableObject
             Instantiate(HealthKitPref, transform.position, Quaternion.identity);
         }
 
-        Destroy(gameObject);
+        Destroy(gameObject, 0.6f);
 
 
     }

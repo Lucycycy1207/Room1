@@ -12,6 +12,7 @@ public class DividerSmall : Enemy
 
     private float timer = 0;
 
+    [SerializeField] private Animator anim;
 
     protected override void Start()
     {
@@ -78,7 +79,9 @@ public class DividerSmall : Enemy
 
     public override void Die()
     {
-        Destroy(this.gameObject);
+        anim.SetBool("IsDead", true);
+
+        Destroy(this.gameObject, 0.6f);
 
 
     }

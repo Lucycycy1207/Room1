@@ -6,9 +6,9 @@ public class Exploder : Enemy
 {
     private float explodeRadius = 1f;
     private float damage;
-    
-    
 
+
+    [SerializeField] private Animator anim;
     protected override void Start()
     {
         base.Start();
@@ -26,6 +26,7 @@ public class Exploder : Enemy
         
         if (Vector2.Distance(transform.position, target.position) <= explodeRadius)
         {
+            anim.SetBool("IsDead", true);
             Explode(explodeRadius);
         }
         
@@ -35,12 +36,13 @@ public class Exploder : Enemy
     public void Explode(float radius)
     {
         //Debug.Log($"explode with radius {radius}");
-        
+        anim.SetBool("IsDead", true);
         target.GetComponent<IDamageable>().GetDamage(damage);
-        Destroy(gameObject);
+        Destroy(gameObject, 0.6f);
     }
     public override void GetDamage(float damage)
     {
+        anim.SetBool("IsDead", true);
         base.GetDamage(damage);
     }
 
@@ -49,7 +51,8 @@ public class Exploder : Enemy
         if (collision.gameObject.CompareTag("Block"))
         {
             collision.gameObject.GetComponent<IDamageable>().GetDamage(damage);
-            Destroy(gameObject);
+            anim.SetBool("IsDead", true);
+            Destroy(gameObject, 0.6f);
         }
     }
     public void SetExploder(float _explodeRadius, float _damage)
